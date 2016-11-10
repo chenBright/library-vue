@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/chenBright/library-vue",
   "dependencies": {
+    "axios": "^0.15.2",
     "vue": "^2.0.1",
     "vue-router": "^2.0.0",
     "vue-touch": "^1.1.0",
