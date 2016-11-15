@@ -1,7 +1,7 @@
 <template>
-<div class="book-list flex-one">
+<div class="book-list">
   <ul>
-    <router-link v-for="book in books" :to="'/books/' + book.bookID" active-class="active">
+    <router-link :to="'/books/' + book.bookID" v-for="book in books" target="_blank">
       <item :key="book.bookID" :book="book"></item>
     </router-link>
   </ul>
@@ -136,6 +136,16 @@ export default {
         "date": "2011"
       }]
     }
+  },
+  beforeMount () {
+    this.$store.dispatch('CHANGE_PAGE', {
+      msg: '搜索结果'
+    })
+  },
+  beforeDestroy() {
+    this.$store.dispatch('RECORD_LASTPAGE', {
+      page: 'books'
+    })
   },
   components: {
     item

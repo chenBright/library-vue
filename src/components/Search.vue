@@ -1,5 +1,5 @@
 <template>
-<section class="search">
+<section class="search flex-one">
   <div class="container">
     <i class="iconfont logo">&#xe603;</i>
     <form class="form-search">
@@ -11,7 +11,6 @@
           <option value="580">大学城校区</option>
           <option value="586">番禺校区</option>
       </select>
-      <!-- <button class="btn btn-success" type="button" name="search-button">搜 索</button> -->
       <router-link to="/books" tag="button" class="btn btn-success" type="button" name="search-button">搜 索</router-link>
     </form>
   </div>
@@ -22,36 +21,13 @@
 export default {
   beforeMount() {
     this.$store.dispatch('CHANGE_PAGE', {
-      msg: 'Search'
+      msg: '图书馆'
+    })
+  },
+  beforeDestroy() {
+    this.$store.dispatch('RECORD_LASTPAGE', {
+      page: 'search'
     })
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-.search {
-    flex: 1;
-}
-
-.container {
-    margin-top: 7rem;
-    padding: 0 4rem;
-
-    .logo {
-        font-size: 7rem;
-        color: #42b983;
-    }
-}
-
-form {
-     > button,
-     > select,
-    > input {
-        margin-top: 1rem;
-    }
-    #campus {
-        height: auto;
-    }
-}
-</style>

@@ -6,35 +6,44 @@ Vue.use(Router)
 import home from '../view/Home'
 import search from '../components/Search'
 import login from '../components/Login'
-import book_list from '../components/BookList'
+import bookList from '../components/BookList'
 import book from '../components/Book'
+import borrowList from '../components/BorrowList'
 
 const routes = [{
-    path: '/',
-    component: home,
-    redirect: '/search',
-    children: [{
-        path: 'search',
-        component: search
-      },
-      {
-        path: 'login',
-        component: login
-      }
-    ]
+  path: '/',
+  component: home,
+  redirect: '/search',
+  children: [{
+    path: 'search',
+    component: search
   },
   {
-    path: '/books',
-    component: book_list
-  },
-  {
-    path: '/books/:id',
-    component: book
-  }
-]
+    path: 'login',
+    component: login
+  }]
+},
+{
+  path: '/books',
+  component: bookList
+},
+{
+  path: '/books/:id',
+  component: book
+},
+{
+  path: '/user',
+  component: borrowList
+}]
 
 export default new Router({
   mode: 'history',
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior(to, from, savedPosition) {
+    console.log(savedPosition)
+    if (savedPosition) {
+      return savedPosition
+    }
+    return { y: 100 }
+  },
   routes
 })
