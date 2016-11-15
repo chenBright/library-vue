@@ -22,6 +22,7 @@
   "homepage": "https://github.com/chenBright/library-vue",
   "dependencies": {
     "axios": "^0.15.2",
+    "smooth-scroll": "cferdinandi/smooth-scroll",
     "vue": "^2.0.1",
     "vue-axios": "^1.1.2",
     "vue-router": "^2.0.0",

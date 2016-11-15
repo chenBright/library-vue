@@ -37,6 +37,12 @@ export default {
       display: flex;
       font-size: 14px;
       color: #69696B;
+      .warn {
+        color: #d9534f;
+      }
+      .success {
+        color: #42b983;
+      }
       span {
         display: block;
       }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-bind:style="{ height: page === '图书馆' ? pageHeight + 'px' : auto }">
+  <div id="app" v-bind:style="{ height: page === '图书馆' ? pageHeight + 'px' : 'auto' }">
     <Banner></Banner>
     <router-view></router-view>
   </div>

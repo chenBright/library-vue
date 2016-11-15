@@ -1,5 +1,5 @@
 <template>
-  <divclass="borrow-list flex-one">
+  <div class="borrow-list">
     <ul>
       <item v-for="book in books" :key="book.orderNumber" :book="book"></item>
     </ul>
@@ -188,5 +188,8 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '在借图书（' + this.books.length + '本）'
     })
+  },
+  components: {
+    item
   }
 }</script>
