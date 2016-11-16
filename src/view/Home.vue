@@ -2,17 +2,33 @@
 
   <div class="home-page flex-one">
     <keep-alive>
-      <router-view></router-view>
+      <search v-if="isSearchTab"></search>
+      <login v-else></login>
     </keep-alive>
     <tab-bar></tab-bar>
   </div>
 </template>
 
 <script>
+import search from '../components/Search'
+import login from '../components/Login'
 import TabBar from '../components/TabBar'
 export default {
+  data() {
+    return {
+    }
+  },
+  computed: {
+    isSearchTab: {
+      get() {
+        return this.$store.state.isSearchTab
+      }
+    }
+  },
   components: {
-    'tab-bar': TabBar
+    'tab-bar': TabBar,
+    search,
+    login
   }
 }
 </script>

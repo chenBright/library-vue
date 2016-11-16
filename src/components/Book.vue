@@ -61,11 +61,6 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书详情'
     })
-  },
-  beforeDestroy() {
-    this.$store.dispatch('RECORD_LASTPAGE', {
-      page: 'search'
-    })
   }
 }
 </script>

@@ -141,10 +141,8 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '搜索结果'
     })
-  },
-  beforeDestroy() {
-    this.$store.dispatch('RECORD_LASTPAGE', {
-      page: 'books'
+    this.$store.dispatch('LOGIN_LOGOUT', {
+      isLogin: true
     })
   },
   components: {
@@ -152,3 +150,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  a:active {
+    background: #cccccc;
+  }
+</style>

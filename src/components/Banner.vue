@@ -1,10 +1,10 @@
 <template>
   <div class="header">
-    <a class="back-btn" v-if="isShowBackBtn" v-on:click="back">
+    <a class="back-btn" v-if="isShowBackBtn" @click="backTo('search')">
       <span><span class="iconfont">&#xe602;</span></span>
     </a>
     <h1 class="app-name">{{ page }}</h1>
-    <router-link to="/login" v-if="isShowLogoutBtn" class="logout iconfont">注销</router-link>
+    <a v-if="isUserPage" @click="logout" class="logout">注销</a>
   </div>
 </template>
 
@@ -20,25 +20,29 @@ export default {
         return this.$store.state.pageTitle
       }
     },
-    backPage: {
-      get() {
-        let last = this.$store.state.backPage
-        if (last === undefined) {
-          return 'search'
-        }
-        return last
-      }
-    },
     isShowBackBtn() {
-      return !(/图书馆/i.test(this.page))
+      return !(/图书馆/.test(this.page))
     },
-    isShowLogoutBtn() {
-      return /在借图书/i.test(this.page)
+    isUserPage() {
+      return /在借图书/.test(this.page)
     }
   },
   methods: {
-    back() {
+    backTo(tab) {
+      let isSearchTab = this.$store.state.isSearchTab
+      if ((tab === 'search' && isSearchTab === false
+       || tab === 'login' && isSearchTab === true)) {
+        this.$store.dispatch('TOGGLE_TAB', {
+          isSearchTab: !isSearchTab
+        })
+      }
       this.$router.back()
+    },
+    logout() {
+      this.backTo('login')
+      this.$store.dispatch('LOGIN_LOGOUT', {
+        isLogin: false
+      })
     }
   }
 }
@@ -109,5 +113,4 @@ export default {
       @extend %active;
     }
   }
-  
 </style>

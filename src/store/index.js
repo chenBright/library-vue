@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     pageTitle: null,
-    backPage: '/'
+    isSearchTab: true,
+    isLogin: false
   },
   actions: {
     CHANGE_PAGE({ commit }, { msg }) {
@@ -15,9 +16,14 @@ const store = new Vuex.Store({
         title: msg
       })
     },
-    RECORD_LASTPAGE({ commit }, { page }) {
-      commit('BACK_TO', {
-        backPage: page
+    TOGGLE_TAB({ commit }, { isSearchTab }) {
+      commit('CHANGE_TAB_STATUS', {
+        isSearchTab: isSearchTab
+      })
+    },
+    LOGIN_LOGOUT({ commit }, { isLogin }) {
+      commit('SET_LOGIN_STATUS', {
+        isLogin: isLogin
       })
     }
   },
@@ -25,8 +31,11 @@ const store = new Vuex.Store({
     SET_TITLE(state, { title }) {
       state.pageTitle = title
     },
-    BACK_TO(state, { backPage }) {
-      state.backPage = backPage
+    CHANGE_TAB_STATUS(state, { isSearchTab }) {
+      state.isSearchTab = isSearchTab
+    },
+    SET_LOGIN_STATUS(state, { isLogin }) {
+      state.isLogin = isLogin
     }
   }
 })

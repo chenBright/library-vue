@@ -5,8 +5,7 @@
     <form class="form-login">
       <input class="form-control" type="text" name="account" placeholder="账号">
       <input class="form-control" type="password" name="password" placeholder="密码">
-      <router-link to="/user" tag="button" class="btn btn-success" type="button" name="search-button">登 录</router-link>
-    </form>
+      <button class="btn btn-success" type="button" name="login-button" @click="login">登 录</button>
   </div>
 </div>
 </template>
@@ -18,10 +17,18 @@ export default {
       msg: '图书馆'
     })
   },
-  beforeDestroy() {
-    this.$store.dispatch('RECORD_LASTPAGE', {
-      page: 'login'
+  actived() {
+    this.$store.dispatch('CHANGE_PAGE', {
+      msg: '图书馆'
     })
+  },
+  methods: {
+    login() {
+      this.$router.push('/user')
+      this.$store.dispatch('LOGIN_LOGOUT', {
+        isLogin: true
+      })
+    }
   }
 }
 </script>

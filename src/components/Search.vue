@@ -28,6 +28,11 @@ export default {
     this.$store.dispatch('RECORD_LASTPAGE', {
       page: 'search'
     })
+  },
+  actived() {
+    this.$store.dispatch('CHANGE_PAGE', {
+      msg: '图书馆'
+    })
   }
 }
 </script>
