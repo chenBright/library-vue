@@ -1,60 +1,68 @@
 <template>
-<div class="load">
-  <div class="loader">loading</div>
-</div>
+  <div class="load">
+    <div class="loader">loading</div>
+  </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .load {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
   .load .loader,
   .load .loader:before,
   .load .loader:after {
-    border-radius: 50%;
+    width: 1em;
+    height: 4em;
+    background: #ffffff;
+    animation: load 1s infinite ease-in-out;
   }
-  
+
   .load .loader:before,
   .load .loader:after {
     position: absolute;
+    top: 0;
     content: '';
   }
-  
-  .load .loader {
-    font-size: 11px;
-    text-indent: -99999em;
-    margin: 5em auto;
-    position: relative;
-    width: 10em;
-    height: 10em;
-    box-shadow: inset 0 0 0 1em #FFF;
-  }
-  
+
   .load .loader:before {
-    width: 5.2em;
-    height: 10.2em;
-    background: #0dcecb;
-    border-radius: 10.2em 0 0 10.2em;
-    top: -0.1em;
-    left: -0.1em;
-    transform-origin: 5.2em 5.1em;
-    animation: load 2s infinite ease 1.5s;
+    left: -1.5em;
+    animation-delay: -0.5s;
   }
-  
+
+  .load .loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    font-size: 11px;
+    text-indent: -9999em;
+    animation-delay: -0.25s;
+  }
+
   .load .loader:after {
-    width: 5.2em;
-    height: 10.2em;
-    background: #0dcecb;
-    border-radius: 0 10.2em 10.2em 0;
-    top: -0.1em;
-    left: 5.1em;
-    transform-origin: 0px 5.1em;
-    animation: load 2s infinite ease;
+    left: 1.5em;
   }
-  
+
   @keyframes load {
-    0% {
-      transform: rotate(0deg);
-    }
+    0%,
+    80%,
     100% {
-      transform: rotate(360deg);
+      box-shadow: 0 0 #FFF;
+      height: 4em;
+    }
+    40% {
+      box-shadow: 0 -2em #ffffff;
+      height: 5em;
     }
   }
 </style>

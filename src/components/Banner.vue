@@ -52,7 +52,7 @@ export default {
   %active {
     background-color: #35A772;
   }
-  
+
   .header {
     overflow: auto;
     position: fixed;
@@ -64,7 +64,7 @@ export default {
     color: #ffffff;
     background-color: #42b983;
   }
-  
+
   .back-btn {
     display: inline-block;
     position: absolute;
@@ -92,7 +92,7 @@ export default {
       font-size: 25px;
     }
   }
-  
+
   .app-name {
     display: inline-block;
     margin: 0;
@@ -100,7 +100,7 @@ export default {
     padding-left: 45px;
     font-size: 20px;
   }
-  
+
   .logout {
     position: absolute;
     right: 0;

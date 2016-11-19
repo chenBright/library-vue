@@ -1,5 +1,4 @@
 <template>
-
   <div class="home-page flex-one">
     <keep-alive>
       <search v-if="isSearchTab"></search>
@@ -13,6 +12,7 @@
 import search from '../components/Search'
 import login from '../components/Login'
 import TabBar from '../components/TabBar'
+
 export default {
   data() {
     return {
@@ -34,24 +34,23 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+  .container {
     margin-top: 10rem;
     padding: 0 4rem;
-
     .logo {
-        font-size: 70px;
-        color: #42b983;
+      font-size: 70px;
+      color: #42b983;
     }
-}
+  }
 
-form {
-     > button,
-     > select,
+  form {
+    > button,
+    > select,
     > input {
-        margin-top: 1rem;
+      margin-top: 1rem;
     }
     #campus {
-        height: auto;
+      height: auto;
     }
-}
+  }
 </style>

@@ -7,7 +7,8 @@ const store = new Vuex.Store({
   state: {
     pageTitle: null,
     isSearchTab: true,
-    isLogin: false
+    isLogin: false,
+    isLoading: false
   },
   actions: {
     CHANGE_PAGE({ commit }, { msg }) {
@@ -19,6 +20,11 @@ const store = new Vuex.Store({
     TOGGLE_TAB({ commit }, { isSearchTab }) {
       commit('CHANGE_TAB_STATUS', {
         isSearchTab: isSearchTab
+      })
+    },
+    LOADING({ commit }, { isLoading }) {
+      commit('CHANGE_LOADING_STATUS', {
+        isLoading: isLoading
       })
     },
     LOGIN_LOGOUT({ commit }, { isLogin }) {
@@ -33,6 +39,9 @@ const store = new Vuex.Store({
     },
     CHANGE_TAB_STATUS(state, { isSearchTab }) {
       state.isSearchTab = isSearchTab
+    },
+    CHANGE_LOADING_STATUS(state, { isLoading }) {
+      state.isLoading = isLoading
     },
     SET_LOGIN_STATUS(state, { isLogin }) {
       state.isLogin = isLogin

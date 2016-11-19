@@ -29,6 +29,9 @@ export default {
     padding: 1rem 1rem 0 1.2rem;
     border-bottom: 1px solid #cccccc;
     text-align: left;
+    &:active {
+      background: #cccccc;
+    }
     h2 {
       margin-top: 0;
       color: #000000;
@@ -48,7 +51,7 @@ export default {
       }
     }
   }
-  
+
   .book-title {
     margin-top: 1.2rem;
     font-size: 16px;

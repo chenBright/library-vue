@@ -150,9 +150,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  a:active {
-    background: #cccccc;
-  }
-</style>

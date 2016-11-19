@@ -2,11 +2,13 @@
   <div id="app" v-bind:style="{ height: page === '图书馆' ? pageHeight + 'px' : 'auto' }">
     <Banner></Banner>
     <router-view></router-view>
+    <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
 import Banner from './components/Banner'
+import loading from './components/loading'
 
 export default {
   data() {
@@ -19,10 +21,16 @@ export default {
       get() {
         return this.$store.state.pageTitle
       }
+    },
+    isLoading: {
+      get() {
+        return this.$store.state.isLoading
+      }
     }
   },
   components: {
-    Banner
+    Banner,
+    loading
   }
 }
 </script>
@@ -32,7 +40,7 @@ export default {
   html {
     font: 10px 'Lucida Grande', Verdana, Arial, Sans-Serif;
   }
-  
+
   h1,
   h2,
   h3,
@@ -43,35 +51,35 @@ export default {
     font-weight: bloder;
     line-height: 1.35;
   }
-  
+
   ul {
     margin: 0;
     padding: 0;
   }
-  
+
   li {
     list-style: none;
   }
-  
+
   #app,
   body,
   html {
     width: 100%;
   }
-  
+
   #app {
     color: #2c3e50;
     font-family: Source Sans Pro, Helvetica, sans-serif;
     text-align: center;
   }
-  
+
   #app,
   .home-page {
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
-  
+
   .book-list,
   .book-info,
   .borrow-list {
@@ -81,7 +89,7 @@ export default {
     padding-bottom: 5px;
   }
   /* 表单 */
-  
+
   .form-control {
     // display: block;
     width: 100%;
@@ -108,7 +116,7 @@ export default {
     }
   }
   /* 按钮 */
-  
+
   .btn {
     display: inline-block;
     padding: 10px 12px;
@@ -127,7 +135,7 @@ export default {
     border-radius: 4px;
     user-select: none;
   }
-  
+
   .btn-success {
     background-color: #42b983;
     &:active,
@@ -135,7 +143,7 @@ export default {
       background: #51c993;
     }
   }
-  
+
   .flex-one {
     flex: 1;
   }
