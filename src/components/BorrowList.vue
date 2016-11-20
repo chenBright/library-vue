@@ -188,6 +188,9 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '在借图书（' + this.books.length + '本）'
     })
+    this.$store.dispatch('LOGIN_LOGOUT', {
+      isLogin: true
+    })
   },
   actived() {
     this.$store.dispatch('CHANGE_PAGE', {

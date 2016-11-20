@@ -25,9 +25,10 @@ export default {
     })
   },
   beforeDestroy() {
-    this.$store.dispatch('RECORD_LASTPAGE', {
-      page: 'search'
+    this.$store.dispatch('LOADING', {
+      isLoading: true
     })
+    this.$store.dispatch('FETCH_BOOKLIST')
   },
   actived() {
     this.$store.dispatch('CHANGE_PAGE', {
