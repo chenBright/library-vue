@@ -1,24 +1,23 @@
 <template>
-  <div class="book-info">
+  <div  v-if="book" class="book-info">
     <section>
-      <h2>javaScript权威指南</h2>
+      <h2>{{ book.title }}</h2>
       <div>
-        <span>作者：</span><span class="flex-one">David Flanagan</span>
+        <span>作者：</span><span class="flex-one">{{book.author}}</span>
       </div>
       <div>
-        <span>出版社：</span><span class="flex-one">机械工业出版社华章公司</span>
+        <span>出版社：</span><span class="flex-one">{{book.publisher}}</span>
       </div>
       <div>
-        <span>出版时间：</span><span class="flex-one">2012</span>
+        <span>出版时间：</span><span class="flex-one">{{book.date}}</span>
       </div>
       <div>
-        <span>索引号：</span><span class="flex-one">9787111376613</span>
+        <span>索引号：</span><span class="flex-one">{{book.index}}</span>
       </div>
       <div>
         <span>楼层：</span>
         <div class="flex-one">
-          <p>大学城样本书库7楼119排4架</p>
-          <p>大学城自然科学书库5楼172排1架</p>
+          <p v-for="place in book.place">{{ place }}</p>
         </div>
       </div>
     </section>
@@ -34,21 +33,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="status in book.collectionStatus">
           <td>
-            大学城样本书库
+            {{ status.area }}
           </td>
           <td>
-            仅供阅览
+            {{ status.status }}
           </td>
         </tr>
-        <tr>
-          <td>
-            大学城自然科学书库
-          </td>
-          <td>
-            2016.11.04应还
-          </td>
         </tr>
       </tbody>
     </table>
@@ -61,6 +53,13 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书详情'
     })
+  },
+  computed: {
+    book: {
+      get() {
+        return this.$store.state.book
+      }
+    }
   }
 }
 </script>

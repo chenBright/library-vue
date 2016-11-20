@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     isSearchTab: true,
     isLogin: false,
     bookList: [],
+    book: null,
     isLoading: false
   },
   actions: {
@@ -28,11 +29,25 @@ const store = new Vuex.Store({
         isLoading: isLoading
       })
     },
-    FETCH_BOOKLIST({ commit }) {
+    FETCH_BOOKLIST({ commit, dispatch }) {
       Vue.axios.get('/search').then((res) => {
         console.log(res.data)
         commit('SET_BOOKLIST', {
           list: res.data
+        })
+        dispatch('LOADING', {
+          isLoading: false
+        })
+      })
+    },
+    FETCH_BOOK({ commit, dispatch }) {
+      Vue.axios.get('/book').then((res) => {
+        console.log(res.data)
+        commit('SET_BOOK', {
+          info: res.data
+        })
+        dispatch('LOADING', {
+          isLoading: false
         })
       })
     },
@@ -54,6 +69,9 @@ const store = new Vuex.Store({
     },
     SET_BOOKLIST(state, { list }) {
       state.bookList = list
+    },
+    SET_BOOK(state, { info }) {
+      state.book = info
     },
     SET_LOGIN_STATUS(state, { isLogin }) {
       state.isLogin = isLogin

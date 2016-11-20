@@ -17,12 +17,15 @@ export default {
       msg: '搜索结果'
     })
   },
+  beforeDestroy() {
+    this.$store.dispatch('LOADING', {
+      isLoading: true
+    })
+    this.$store.dispatch('FETCH_BOOK')
+  },
   computed: {
     books: {
       get() {
-        this.$store.dispatch('LOADING', {
-          isLoading: false
-        })
         return this.$store.state.bookList
       }
     }
