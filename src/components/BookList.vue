@@ -16,17 +16,15 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '搜索结果'
     })
-  },
-  beforeDestroy() {
     this.$store.dispatch('LOADING', {
       isLoading: true
     })
-    this.$store.dispatch('FETCH_BOOK')
+    this.$store.dispatch('FETCH_SEARCHLIST')
   },
   computed: {
     books: {
       get() {
-        return this.$store.state.bookList
+        return this.$store.state.searchList
       }
     }
   },

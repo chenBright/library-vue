@@ -17,11 +17,6 @@ export default {
       msg: '图书馆'
     })
   },
-  actived() {
-    this.$store.dispatch('CHANGE_PAGE', {
-      msg: '图书馆'
-    })
-  },
   methods: {
     login() {
       this.$router.push('/user')

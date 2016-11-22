@@ -23,11 +23,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/search': {
-        target: 'http://localhost:3000/searchbooks?campus=ALL&keyword=js&page=1',
+        target: 'http://library.chenbright.com/searchbooks?campus=ALL&keyword=js&page=1',
         changeOrigin: true
       },
       '/book': {
-        target: 'http://library.chenbright.com/getBookInfomation?bookID=683949&title=%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E4%B8%8E%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%20[%E4%B8%93%E8%91%97]&author=%E9%99%88%E5%B0%8F%E9%BE%99%E7%BC%96%E8%91%97&publisher=%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E5%87%BA%E7%89%88%E7%A4%BE&date=2015',
+        target: 'http://library.chenbright.com/getBookInfomation?bookID=678714&title=Cocos2d-JS%E5%BC%80%E5%8F%91%E4%B9%8B%E6%97%85%20[%E4%B8%93%E8%91%97]%EF%BC%9A%E4%BB%8EHTML%205%E5%88%B0%E5%8E%9F%E7%94%9F%E6%89%8B%E6%9C%BA%E6%B8%B8%E6%88%8F&author=%E9%83%91%E9%AB%98%E5%BC%BA%E8%91%97&publisher=%E7%94%B5%E5%AD%90%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE&date=2015',
         changeOrigin: true
       }
     },
@@ -36,6 +36,6 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
-    cssSourceMap: false
+    cssSourceMap: true
   }
 }

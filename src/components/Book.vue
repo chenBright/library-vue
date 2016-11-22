@@ -53,6 +53,10 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书详情'
     })
+    this.$store.dispatch('LOADING', {
+      isLoading: true
+    })
+    this.$store.dispatch('FETCH_BOOK')
   },
   computed: {
     book: {
