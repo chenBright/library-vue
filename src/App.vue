@@ -80,7 +80,11 @@ export default {
     overflow: hidden;
   }
 
-  .book-list,
+  .book-list {
+    padding-top: 100px;
+    padding-bottom: 5px;
+  }
+
   .book-info,
   .borrow-list {
     /*overflow: scroll;

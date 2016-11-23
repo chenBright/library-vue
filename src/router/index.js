@@ -13,7 +13,7 @@ const routes = [{
   component: home
 },
 {
-  path: ':campus/books',
+  path: '/:campus/:keywords',
   component: bookList
 },
 {

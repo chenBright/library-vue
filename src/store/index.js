@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { fetchSearchList } from './fetchData'
 
 Vue.use(Vuex)
 
@@ -8,12 +9,15 @@ const store = new Vuex.Store({
     pageTitle: null,
     isSearchTab: true,
     isLogin: false,
+    campus: 'all',
+    page: 1,
     searchList: {
       all: {},
       dx: {},
       ld: {},
       py: {}
     },
+    activedItems: [],
     book: null,
     isLoading: false
   },
@@ -34,20 +38,44 @@ const store = new Vuex.Store({
         isLoading: isLoading
       })
     },
-    FETCH_SEARCHLIST({ commit, dispatch }) {
-      Vue.axios.get('/search').then((res) => {
-        console.log(res.data)
-        commit('SET_SEARCHLIST', {
-          list: res.data
-        })
-        dispatch('LOADING', {
-          isLoading: false
-        })
+    FETCH_SEARCHLIST({ commit, dispatch }, { campus, keywords, page }) {
+      commit('SET_CAMPUS', {
+        campus: campus
       })
+      commit('SET_KEYWORDS', {
+        keywords: keywords
+      })
+      commit('SET_PAGE', {
+        page: page
+      })
+      let fetch = fetchSearchList(campus, keywords, page)
+      fetch.then((res) => {
+        console.log(res)
+        if (res) {
+          commit('SET_SEARCHLIST', {
+            list: res.data,
+            campus: campus,
+            keywords: keywords
+          })
+        }
+      })
+        .then(() => {
+          dispatch('ENSURE_AVTIVE_ITEMS')
+          dispatch('LOADING', {
+            isLoading: false
+          })
+        })
+    },
+    ENSURE_AVTIVE_ITEMS({ commit, dispatch, getters }) {
+      commit('SET_ITEMS', {
+        items: getters.activedItems
+      })
+      // dispatch('FETCH_ITEMS', {
+      //   items: getters.activedItems
+      // })
     },
     FETCH_BOOK({ commit, dispatch }) {
-      Vue.axios.get('/book/:id').then((res) => {
-        console.log(res.data)
+      Vue.axios.get('/book').then((res) => {
         commit('SET_BOOK', {
           info: res.data
         })
@@ -72,8 +100,20 @@ const store = new Vuex.Store({
     CHANGE_LOADING_STATUS(state, { isLoading }) {
       state.isLoading = isLoading
     },
-    SET_SEARCHLIST(state, { list }) {
-      state.searchList = list
+    SET_CAMPUS(state, { campus }) {
+      state.campus = campus
+    },
+    SET_KEYWORDS(state, { keywords }) {
+      state.keywords = keywords
+    },
+    SET_PAGE(state, { page }) {
+      state.page = page
+    },
+    SET_SEARCHLIST(state, { list, campus, keywords }) {
+      Vue.set(state.searchList[campus], keywords, list)
+    },
+    SET_ITEMS(state, { items }) {
+      state.activedItems = items
     },
     SET_BOOK(state, { info }) {
       state.book = info
@@ -83,7 +123,12 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-
+    activedItems(state) {
+      const { campus, keywords, page, searchList } = state,
+        start = (page - 1) * 20,
+        end = page * 20
+      return searchList[campus][keywords].slice(start, end)
+    }
   }
 })
 

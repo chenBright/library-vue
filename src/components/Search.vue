@@ -3,7 +3,7 @@
   <div class="container">
     <i class="iconfont logo">&#xe603;</i>
     <form class="form-search">
-      <input class="form-control" type="text" name="keyword" placeholder="关键词">
+      <input v-model="keywords" class="form-control" type="text" name="keyword" placeholder="关键词">
       <select v-model="campus" class="form-control" id="campus" name="campus">
           <option value="ALL">全部校区</option>
           <option value="578">东风路校区</option>
@@ -26,13 +26,11 @@ export default {
   },
   data() {
     return {
-      campus: 'all'
+      keywords: '',
+      campus: 'ALL'
     }
   },
   methods: {
-    selectChanged() {
-      // console.log(this.campus)
-    },
     search() {
       let campusCode = this.campus,
         campus
@@ -45,12 +43,12 @@ export default {
           break
         case '578':
           campus = 'dx'
+          break
         default:
           campus = 'py'
           break
       }
-        console.log(campus)
-      this.$router.push(campus + '/books')
+      this.$router.push(campus + '/' + this.keywords)
     }
   }
 }

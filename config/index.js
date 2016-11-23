@@ -22,8 +22,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/search': {
+      '/all/55/1': {
         target: 'http://library.chenbright.com/searchbooks?campus=ALL&keyword=js&page=1',
+        changeOrigin: true
+      },
+      '/all/55/2': {
+        target: 'http://library.chenbright.com/searchbooks?campus=ALL&keyword=js&page=2',
+        changeOrigin: true
+      },
+      '/all/55/3': {
+        target: 'http://library.chenbright.com/searchbooks?campus=ALL&keyword=js&page=3',
         changeOrigin: true
       },
       '/book': {

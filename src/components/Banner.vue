@@ -1,11 +1,11 @@
 <template>
-  <div class="header">
+  <header class="header">
     <a class="back-btn" v-if="isShowBackBtn" @click="backTo('search')">
       <span><span class="iconfont">&#xe602;</span></span>
     </a>
     <h1 class="app-name">{{ page }}</h1>
     <a v-if="isUserPage" @click="logout" class="logout">注销</a>
-  </div>
+  </header>
 </template>
 
 <script>
