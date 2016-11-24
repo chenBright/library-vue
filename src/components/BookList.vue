@@ -1,17 +1,17 @@
 <template>
   <div class="book-list">
     <div class="list-nav">
-      <a v-if="page > 1">&lt; 上一页</a>
+      <a @click="prePage" v-if="page > 1">&lt; 上一页</a>
       <a v-else class="disable">&lt; 上一页</a>
-      <select name="pageCount" id="pageCount">
-      <option v-for="n in books[0].pagecount" :value="n">{{ n }}</option>
-    </select>
-      <a @click="nextPage" v-if="page < books[0].pagecount">下一页 &gt;</a>
+      <select v-model.number="page" name="pageCount" id="pageCount">
+        <option v-for="n in pageCount" :value="n">{{ n }}</option>
+      </select>
+      <a @click="nextPage" v-if="page < pageCount">下一页 &gt;</a>
       <a v-else class="disable">下一页 &gt;</a>
     </div>
     <ul>
-      <router-link :to="'/books/' + book.bookID" v-for="book in books" target="_blank">
-        <item :key="book.bookID" :book="book"></item>
+      <router-link :to="'/books/' + book.bookID" v-for="book in books"  :key="book.bookID" target="_blank">
+        <item :book="book"></item>
       </router-link>
     </ul>
   </div>
@@ -24,9 +24,6 @@ export default {
   beforeMount () {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '搜索结果'
-    })
-    this.$store.dispatch('LOADING', {
-      isLoading: true
     })
     this.loadList(this.page)
   },
@@ -44,7 +41,18 @@ export default {
     },
     page: {
       get() {
-        return this.$store.state.page
+        return +this.$route.params.pageNumber
+      },
+      set(n) {
+        this.loadList(n)
+        this.$router.replace(
+          '/books/' + this.campus + '/' + this.keywords + '/' + n
+        )
+      }
+    },
+    pageCount: {
+      get() {
+        return this.$store.state.pageCount
       }
     }
   },
@@ -56,8 +64,17 @@ export default {
         page: page
       })
     },
+    prePage() {
+      this.$router.replace(
+        '/books/' + this.campus + '/' + this.keywords + '/' + (this.page - 1)
+      )
+      this.loadList(this.page)
+    },
     nextPage() {
-      this.loadList(this.page + 1)
+      this.$router.replace(
+        '/books/' + this.campus + '/' + this.keywords + '/' + (this.page + 1)
+      )
+      this.loadList(this.page)
     }
   },
   components: {
@@ -79,7 +96,6 @@ export default {
     font-size: 13px;
     background-color: #ffffff;
     border: 1px solid #cccccc;
-
     .disable {
       color: #C9C9CE;
     }

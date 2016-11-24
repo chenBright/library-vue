@@ -13,11 +13,11 @@ const routes = [{
   component: home
 },
 {
-  path: '/:campus/:keywords',
+  path: '/books/:campus/:keywords/:pageNumber',
   component: bookList
 },
 {
-  path: '/books',
+  path: '/books/:id',
   component: book
 },
 {

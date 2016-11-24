@@ -23,6 +23,9 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书馆'
     })
+    this.$store.dispatch('CHANGE_PAGE_NUMBER', {
+      page: 1
+    })
   },
   data() {
     return {
@@ -48,7 +51,7 @@ export default {
           campus = 'py'
           break
       }
-      this.$router.push(campus + '/' + this.keywords)
+      this.$router.push('/books/' + campus + '/' + this.keywords + '/' + 1)
     }
   }
 }
