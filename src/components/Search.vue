@@ -5,11 +5,11 @@
     <form class="form-search">
       <input v-model="keywords" class="form-control" type="text" name="keyword" placeholder="关键词">
       <select v-model="campus" class="form-control" id="campus" name="campus">
-          <option value="ALL">全部校区</option>
-          <option value="578">东风路校区</option>
-          <option value="579">龙洞校区</option>
-          <option value="580">大学城校区</option>
-          <option value="586">番禺校区</option>
+          <option value="all">全部校区</option>
+          <option value="df">东风路校区</option>
+          <option value="ld">龙洞校区</option>
+          <option value="dx">大学城校区</option>
+          <option value="py">番禺校区</option>
       </select>
       <button @click.prevent="search" class="btn btn-success" name="search-button">搜 索</button>
     </form>
@@ -30,28 +30,13 @@ export default {
   data() {
     return {
       keywords: '',
-      campus: 'ALL'
+      campus: 'all'
     }
   },
   methods: {
     search() {
-      let campusCode = this.campus,
-        campus
-      switch(campusCode) {
-        case 'ALL':
-          campus = 'all'
-          break
-        case '578':
-          campus = 'ld'
-          break
-        case '578':
-          campus = 'dx'
-          break
-        default:
-          campus = 'py'
-          break
-      }
-      this.$router.push('/books/' + campus + '/' + this.keywords + '/' + 1)
+      console.log(campus)
+      this.$router.push('/books/' + this.campus + '/' + this.keywords + '/' + 1)
     }
   }
 }

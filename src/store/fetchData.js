@@ -3,6 +3,13 @@ import Vue from 'vue'
 let cache = {
     searchIds: [],
     bookIds: []
+  },
+  campusMap = {
+    all: 'ALL',
+    df: 578,
+    ld: 579,
+    dx: 580,
+    py: 586
   }
 
 export function fetchSearchList(campus, keywords, page) {
