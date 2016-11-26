@@ -44,7 +44,7 @@ function handleFloorInformation(objection) {
 	for (var i = 0, len = informationArray.length; i < len; i++) {
 		var value = informationArray[i]
 		if (value['Site']) {
-			floorArray.push(value['Room'] + value['Site'])
+			floorArray.push(value['Room'] + value['Site'].slice(0, -1))
 		}
 	}
 	console.log(floorArray)
@@ -70,10 +70,7 @@ floorInformation.spider = function () {
 	superagent.get(floorUrl).set(floorHeader).end(function (err, res) {
 		var floorInformation = JSON.parse(res.text)
 		information.place = handleFloorInformation(floorInformation)
-		console.log(floorInformation)
-		console.log(1)
 		eventEmitter.emit('floorInformationHasGotten')
-		console.log(2)
 	});
 	return this
 };

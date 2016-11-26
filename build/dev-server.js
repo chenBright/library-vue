@@ -94,10 +94,10 @@ app.get('/:campus/:keywords/:page', function (req, res) {
     page = params.page
   books.config(campus, keywords, page).spider().getBookList(req, res);
 });
-app.get('/getBookInfomation', function (req, res) {
+app.get('/:id', function (req, res) {
   console.log('getBookInfo')
-  console.log(req.query)
-  bookInfomation.config(req.query).spider().getBookInformation(req, res)
+  console.log(req.params.id)
+  bookInfomation.config(req.params.id).spider().getBookInformation(req, res)
 })
 app.post('/login', function (req, res) {
   console.log('login')

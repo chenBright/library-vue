@@ -24,16 +24,16 @@ var header = {
 }
 
 //配置爬虫url和header
-bookInfomation.config = function (someInformation) {
+bookInfomation.config = function (id) {
 	//重置搜索结果，防止其返回上一次的搜索结果
 	bookStatus = []
 	serachContent = ''
-	url = 'http://222.200.122.171:7771/bookinfo.aspx?ctrlno=' + someInformation.bookID
+	url = 'http://222.200.122.171:7771/bookinfo.aspx?ctrlno=' + id
 	information = {
-		title: someInformation.title,
-		author: someInformation.author,
-		publisher: someInformation.publisher,
-		date: someInformation.date,
+		title: '',
+		author: '',
+		publisher: '',
+		date: '',
 		index: '',
 		place: [],
 		collectionStatus: []
@@ -46,9 +46,14 @@ bookInfomation.spider = function () {
 	bookStatus = []
 	superagent.get(url).set(header).end(function (err, res) {
 		var $ = cheerio.load(res.text),
-			regExp = /\S+/g; //匹配非空字符，以删除空字符
+			regExp = /\S+/g //匹配非空字符，以删除空字符
 		//通过CSS selector来筛选数据
-		//		console.log(res.text);
+    var info = $('#ctl00_ContentPlaceHolder1_bookcardinfolbl').text(),
+      mainInfo = /(.+)／(.+)—.*：(.+)，([\w\.]+)\s/.exec(info)
+    information.title = mainInfo[1].trim()
+    information.author = mainInfo[2].slice(0, -1)
+    information.publisher = mainInfo[3]
+    information.date = mainInfo[4]
 		$('tbody tr').each(function (trIndex, trElement) {
 			var result = {}
 			$(this).find('td').each(function (tdIndex, tdElement) {
@@ -76,9 +81,7 @@ bookInfomation.spider = function () {
 			bookStatus.push(result)
 		});
 		console.log(bookStatus)
-		console.log(1)
 		eventEmitter.emit('informationHasGotten')
-		console.log(2)
 	});
 	return this
 };
