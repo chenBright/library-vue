@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { fetchSearchList, fetchBook } from './fetchData'
+import { fetchSearchList, fetchBook, fetchBorrowedBooks } from './fetchData'
 
 Vue.use(Vuex)
 
@@ -22,7 +22,8 @@ const store = new Vuex.Store({
     activedItems: [],
     books: {},
     activeBook: null,
-    isLoading: false
+    isLoading: false,
+    borrowedBooks: []
   },
   actions: {
     CHANGE_PAGE({ commit }, { msg }) {
@@ -60,7 +61,7 @@ const store = new Vuex.Store({
         page: page
       })
       fetchSearchList(campus, keywords, page)
-        .then((res) => {
+        .then(res => {
           console.log(res)
           if (res) {
             commit('SET_SEARCHLIST', {
@@ -91,7 +92,7 @@ const store = new Vuex.Store({
         id: id
       })
       fetchBook(id)
-        .then((res) => {
+        .then(res => {
           if (res) {
             commit('SET_BOOK', {
               book: res.data,
@@ -115,6 +116,20 @@ const store = new Vuex.Store({
       commit('SET_LOGIN_STATUS', {
         isLogin: isLogin
       })
+    },
+    FETCH_BORROWED_BOOKS({ commit, dispatch }) {
+      dispatch('LOADING', {
+        isLoading: true
+      })
+      fetchBorrowedBooks()
+        .then(res => {
+          commit('SET_BORROWED_BOOKS', {
+            books: res.data
+          })
+          dispatch('LOADING', {
+            isLoading: false
+          })
+        })
     }
   },
   mutations: {
@@ -164,6 +179,9 @@ const store = new Vuex.Store({
     },
     SET_LOGIN_STATUS(state, { isLogin }) {
       state.isLogin = isLogin
+    },
+    SET_BORROWED_BOOKS(state, { books }) {
+      Vue.set(state, 'borrowedBooks', books)
     }
   },
   getters: {

@@ -83,7 +83,7 @@ app.use(session({
 }))
 
 //路由
-app.get('/:campus/:keywords/:page', function (req, res) {
+app.get('/search/:campus/:keywords/:page', function (req, res) {
   console.log('searchbooks');
   if (req.session.searchPageNumber) {
     req.session.searchPageNumber = 1
@@ -94,7 +94,7 @@ app.get('/:campus/:keywords/:page', function (req, res) {
     page = params.page
   books.config(campus, keywords, page).spider().getBookList(req, res);
 });
-app.get('/:id', function (req, res) {
+app.get('/book/:id', function (req, res) {
   console.log('getBookInfo')
   console.log(req.params.id)
   bookInfomation.config(req.params.id).spider().getBookInformation(req, res)

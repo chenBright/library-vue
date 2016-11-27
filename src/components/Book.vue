@@ -77,8 +77,9 @@ export default {
       border-radius: 10px;
       h2 {
         margin: 0;
-        padding: 1rem 0;
+        padding: 1rem 16px;
         font-size: 18px;
+        text-align: left;
         color: #ffffff;
         background-color: #42b983;
         border: 0;
@@ -88,7 +89,7 @@ export default {
       > div {
         display: flex;
         margin: 0;
-        padding: 1em;
+        padding: 16px;
         font-size: 16px;
         text-align: left;
         border-bottom: 1px solid #cccccc;
