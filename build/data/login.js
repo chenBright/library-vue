@@ -62,8 +62,7 @@ login.getLoginStatus = function (req, res) {
 	eventEmitter.once('loginHasverified', function () {
 		console.log('loginhasverified')
 		res.cookie('sulcmiswebpac', loginCookie, {
-			path: '/',
-			httpOnly: true
+			path: '/'
 		}).status(200).json({
 			'loginMsg': loginMsg,
 			'loginSuccessfully': loginSuccessfully

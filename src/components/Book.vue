@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  beforeMount () {
+  beforeMount() {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书详情'
     })
@@ -57,6 +57,11 @@ export default {
       id: this.$route.params.id
     })
   },
+  beforeDestroy() {
+    this.$store.dispatch('CLEAR_AVTIVE_BOOK', {
+      id: this.$route.params.id
+    })
+    },
   computed: {
     book: {
       get() {

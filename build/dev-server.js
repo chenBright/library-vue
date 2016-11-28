@@ -110,11 +110,6 @@ app.get('/getBorrowedBooks', function (req, res) {
   console.log(req.cookies)
   borrowedBooks.config(req.cookies).spider().getBorrowedBookList(req, res)
 })
-app.get('/deleteCookie', function (req, res) {
-  console.log('deleteCookie')
-  console.log(req.cookies)
-  res.clearCookie('sulcmiswebpac').status(200).send('cookie清除成功')
-})
 
 module.exports = app.listen(port, function (err) {
   if (err) {

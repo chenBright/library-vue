@@ -21,6 +21,7 @@ const store = new Vuex.Store({
     },
     activedItems: [],
     books: {},
+    activeBookId: '',
     activeBook: null,
     isLoading: false,
     borrowedBooks: []
@@ -62,7 +63,6 @@ const store = new Vuex.Store({
       })
       fetchSearchList(campus, keywords, page)
         .then(res => {
-          console.log(res)
           if (res) {
             commit('SET_SEARCHLIST', {
               list: res.data,
@@ -84,6 +84,11 @@ const store = new Vuex.Store({
         items: getters.activeItems
       })
     },
+    CLEAR_AVTIVE_ITEMS({ commit }) {
+      commit('SET_ITEMS', {
+        items: []
+      })
+      },
     FETCH_BOOK({ commit, dispatch }, { id }) {
       dispatch('LOADING', {
         isLoading: true
@@ -110,6 +115,14 @@ const store = new Vuex.Store({
     ENSURE_ACTIVE_BOOK({ commit, getters }) {
       commit('SET_ACTIVE_BOOK', {
         activeBook: getters.activeBook
+      })
+    },
+    CLEAR_AVTIVE_BOOK({ commit }) {
+      commit('SET_ACTIVE_BOOK', {
+        activeBook: null
+      })
+      commit('SET_ACTIVE_BOOKID', {
+        id: ''
       })
     },
     LOGIN_LOGOUT({ commit }, { isLogin }) {
