@@ -53,9 +53,7 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书详情'
     })
-    this.$store.dispatch('FETCH_BOOK', {
-      id: this.$route.params.id
-    })
+    this.$store.dispatch('FETCH_BOOK')
   },
   beforeDestroy() {
     this.$store.dispatch('CLEAR_AVTIVE_BOOK', {

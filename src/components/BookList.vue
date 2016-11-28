@@ -27,6 +27,9 @@ export default {
     })
     this.loadList(this.page)
   },
+  beforeDestroy() {
+    this.clearItems()
+  },
   data() {
     return {
       campus: this.$route.params.campus,
@@ -58,11 +61,15 @@ export default {
   },
   methods: {
     loadList(page) {
+      this.clearItems()
       this.$store.dispatch('FETCH_SEARCHLIST', {
         campus: this.campus,
         keywords: this.keywords,
         page: page
       })
+    },
+    clearItems() {
+      this.$store.dispatch('CLEAR_AVTIVE_ITEMS')
     },
     prePage() {
       this.$router.replace(
