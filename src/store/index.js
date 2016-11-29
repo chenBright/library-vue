@@ -4,11 +4,8 @@ import { fetchSearchList, fetchBook, fetchBorrowedBooks } from './fetchData'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+const searchStore = {
   state: {
-    pageTitle: null,
-    isSearchTab: true,
-    isLogin: false,
     campus: 'all',
     keywords: '',
     pageCount: 0,
@@ -19,30 +16,9 @@ const store = new Vuex.Store({
       ld: {},
       py: {}
     },
-    activedItems: [],
-    books: {},
-    activeBookId: '',
-    activeBook: null,
-    isLoading: false,
-    borrowedBooks: []
+    activedItems: []
   },
   actions: {
-    CHANGE_PAGE({ commit }, { msg }) {
-      document.title = msg
-      commit('SET_TITLE', {
-        title: msg
-      })
-    },
-    TOGGLE_TAB({ commit }, { isSearchTab }) {
-      commit('CHANGE_TAB_STATUS', {
-        isSearchTab: isSearchTab
-      })
-    },
-    LOADING({ commit }, { isLoading }) {
-      commit('CHANGE_LOADING_STATUS', {
-        isLoading: isLoading
-      })
-    },
     CHANGE_PAGE_NUMBER({ commit }, { page }) {
       commit('SET_PAGE_NUMBER', {
         page: page
@@ -88,7 +64,50 @@ const store = new Vuex.Store({
       commit('SET_ITEMS', {
         items: []
       })
-      },
+    }
+  },
+  mutations: {
+    SET_CAMPUS(state, { campus }) {
+      state.campus = campus
+    },
+    SET_KEYWORDS(state, { keywords }) {
+      state.keywords = keywords
+    },
+    SET_PAGE_NUMBER(state, { page }) {
+      state.page = page
+    },
+    SET_SEARCHLIST(state, { list, campus, keywords, page }) {
+      let { searchList } = state,
+        oldList = searchList[campus][keywords]
+      if (oldList) {
+        oldList[page] = list
+      } else {
+        let listObj = {
+          1: list
+        }
+        state.pageCount = list[0]['pagecount']
+        Vue.set(searchList[campus], keywords, listObj)
+      }
+    },
+    SET_ITEMS(state, { items }) {
+      state.activedItems = items
+    }
+  },
+  getters: {
+    activeItems(state) {
+      const { campus, keywords, page, searchList } = state
+      return searchList[campus][keywords][page]
+    }
+  }
+}
+
+const bookStore = {
+  state: {
+    books: {},
+    activeBookId: '',
+    activeBook: null
+  },
+  actions: {
     FETCH_BOOK({ commit, dispatch }, { id }) {
       dispatch('LOADING', {
         isLoading: true
@@ -124,6 +143,51 @@ const store = new Vuex.Store({
       commit('SET_ACTIVE_BOOKID', {
         id: ''
       })
+    }
+  },
+  mutations: {
+    SET_BOOK(state, { book, id }) {
+      state.books[id] = book
+    },
+    SET_ACTIVE_BOOKID(state, { id }) {
+      state.activeBookId = id
+    },
+    SET_ACTIVE_BOOK(state, { activeBook }) {
+      Vue.set(state, 'activeBook', activeBook)
+    }
+  },
+  getters: {
+    activeBook(state) {
+      const { books, activeBookId } = state
+      return books[activeBookId]
+    }
+  }
+}
+
+const store = new Vuex.Store({
+  state: {
+    pageTitle: null,
+    isSearchTab: true,
+    isLogin: false,
+    isLoading: false,
+    borrowedBooks: []
+  },
+  actions: {
+    CHANGE_PAGE({ commit }, { msg }) {
+      document.title = msg
+      commit('SET_TITLE', {
+        title: msg
+      })
+    },
+    TOGGLE_TAB({ commit }, { isSearchTab }) {
+      commit('CHANGE_TAB_STATUS', {
+        isSearchTab: isSearchTab
+      })
+    },
+    LOADING({ commit }, { isLoading }) {
+      commit('CHANGE_LOADING_STATUS', {
+        isLoading: isLoading
+      })
     },
     LOGIN_LOGOUT({ commit }, { isLogin }) {
       commit('SET_LOGIN_STATUS', {
@@ -155,56 +219,11 @@ const store = new Vuex.Store({
     CHANGE_LOADING_STATUS(state, { isLoading }) {
       state.isLoading = isLoading
     },
-    SET_CAMPUS(state, { campus }) {
-      state.campus = campus
-    },
-    SET_KEYWORDS(state, { keywords }) {
-      state.keywords = keywords
-    },
-    SET_PAGE_NUMBER(state, { page }) {
-      state.page = page
-    },
-    SET_SEARCHLIST(state, { list, campus, keywords, page }) {
-      let { searchList } = state,
-        oldList = searchList[campus][keywords]
-      if (oldList) {
-        oldList[page] = list
-      } else {
-        let listObj = {
-          1: list
-        }
-        state.pageCount = list[0]['pagecount']
-        Vue.set(searchList[campus], keywords, listObj)
-      }
-    },
-    SET_ITEMS(state, { items }) {
-      state.activedItems = items
-    },
-    SET_BOOK(state, { book, id }) {
-      state.books[id] = book
-    },
-    SET_ACTIVE_BOOKID(state, { id }) {
-      state.activeBookId = id
-    },
-    SET_ACTIVE_BOOK(state, { activeBook }) {
-      // state.activeBook = activeBook
-      Vue.set(state, 'activeBook', activeBook)
-    },
     SET_LOGIN_STATUS(state, { isLogin }) {
       state.isLogin = isLogin
     },
     SET_BORROWED_BOOKS(state, { books }) {
       Vue.set(state, 'borrowedBooks', books)
-    }
-  },
-  getters: {
-    activeItems(state) {
-      const { campus, keywords, page, searchList } = state
-      return searchList[campus][keywords][page]
-    },
-    activeBook(state) {
-      const { books, activeBookId } = state
-      return books[activeBookId]
     }
   }
 })
