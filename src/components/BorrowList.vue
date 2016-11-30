@@ -19,7 +19,7 @@ export default {
   computed: {
     books: {
       get() {
-        let books = this.$store.state.borrowedBooks
+        let books = this.$store.state.borrowStore.borrowedBooks
         this.$store.dispatch('CHANGE_PAGE', {
           msg: '在借图书（' + books.length + '本）'
         })

@@ -19,12 +19,12 @@ export default {
   computed: {
     page: {
       get() {
-        return this.$store.state.pageTitle
+        return this.$store.state.globalStore.pageTitle
       }
     },
     isLoading: {
       get() {
-        return this.$store.state.isLoading
+        return this.$store.state.globalStore.isLoading
       }
     }
   },

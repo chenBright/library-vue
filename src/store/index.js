@@ -4,6 +4,52 @@ import { fetchSearchList, fetchBook, fetchBorrowedBooks } from './fetchData'
 
 Vue.use(Vuex)
 
+const globalStore = {
+  state: {
+    pageTitle: null,
+    isSearchTab: true,
+    isLoading: false,
+    isLogin: false
+  },
+  actions: {
+    CHANGE_PAGE({ commit }, { msg }) {
+      document.title = msg
+      commit('SET_TITLE', {
+        title: msg
+      })
+    },
+    TOGGLE_TAB({ commit }, { isSearchTab }) {
+      commit('CHANGE_TAB_STATUS', {
+        isSearchTab: isSearchTab
+      })
+    },
+    LOADING({ commit }, { isLoading }) {
+      commit('CHANGE_LOADING_STATUS', {
+        isLoading: isLoading
+      })
+    },
+    LOGIN_LOGOUT({ commit }, { isLogin }) {
+      commit('SET_LOGIN_STATUS', {
+        isLogin: isLogin
+      })
+    }
+  },
+  mutations: {
+    SET_TITLE(state, { title }) {
+      state.pageTitle = title
+    },
+    CHANGE_TAB_STATUS(state, { isSearchTab }) {
+      state.isSearchTab = isSearchTab
+    },
+    CHANGE_LOADING_STATUS(state, { isLoading }) {
+      state.isLoading = isLoading
+    },
+    SET_LOGIN_STATUS(state, { isLogin }) {
+      state.isLogin = isLogin
+    }
+  }
+}
+
 const searchStore = {
   state: {
     campus: 'all',
@@ -164,36 +210,11 @@ const bookStore = {
   }
 }
 
-const store = new Vuex.Store({
+const borrowStore = {
   state: {
-    pageTitle: null,
-    isSearchTab: true,
-    isLogin: false,
-    isLoading: false,
     borrowedBooks: []
   },
   actions: {
-    CHANGE_PAGE({ commit }, { msg }) {
-      document.title = msg
-      commit('SET_TITLE', {
-        title: msg
-      })
-    },
-    TOGGLE_TAB({ commit }, { isSearchTab }) {
-      commit('CHANGE_TAB_STATUS', {
-        isSearchTab: isSearchTab
-      })
-    },
-    LOADING({ commit }, { isLoading }) {
-      commit('CHANGE_LOADING_STATUS', {
-        isLoading: isLoading
-      })
-    },
-    LOGIN_LOGOUT({ commit }, { isLogin }) {
-      commit('SET_LOGIN_STATUS', {
-        isLogin: isLogin
-      })
-    },
     FETCH_BORROWED_BOOKS({ commit, dispatch }) {
       dispatch('LOADING', {
         isLoading: true
@@ -210,21 +231,18 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    SET_TITLE(state, { title }) {
-      state.pageTitle = title
-    },
-    CHANGE_TAB_STATUS(state, { isSearchTab }) {
-      state.isSearchTab = isSearchTab
-    },
-    CHANGE_LOADING_STATUS(state, { isLoading }) {
-      state.isLoading = isLoading
-    },
-    SET_LOGIN_STATUS(state, { isLogin }) {
-      state.isLogin = isLogin
-    },
     SET_BORROWED_BOOKS(state, { books }) {
       Vue.set(state, 'borrowedBooks', books)
     }
+  }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    globalStore,
+    searchStore,
+    bookStore,
+    borrowStore
   }
 })
 

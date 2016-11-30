@@ -12,7 +12,7 @@ export default {
   computed: {
     isSearchTab: {
       get() {
-        return this.$store.state.isSearchTab
+        return this.$store.state.searchStore.isSearchTab
       }
     }
   },

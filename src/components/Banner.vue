@@ -10,14 +10,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-    }
-  },
   computed: {
     page: {
       get() {
-        return this.$store.state.pageTitle
+        return this.$store.state.globalStore.pageTitle
       }
     },
     isShowBackBtn() {
@@ -29,7 +25,7 @@ export default {
   },
   methods: {
     backTo(tab) {
-      let isSearchTab = this.$store.state.isSearchTab
+      let isSearchTab = this.$store.state.globalStore.isSearchTab
       if ((tab === 'search' && isSearchTab === false
        || tab === 'login' && isSearchTab === true)) {
         this.$store.dispatch('TOGGLE_TAB', {

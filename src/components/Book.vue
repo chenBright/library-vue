@@ -63,7 +63,7 @@ export default {
   computed: {
     book: {
       get() {
-        return this.$store.state.activeBook
+        return this.$store.state.bookStore.activeBook
       }
     }
   }

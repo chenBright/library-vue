@@ -39,7 +39,7 @@ export default {
   computed: {
     books: {
       get() {
-        return this.$store.state.activedItems
+        return this.$store.state.searchStore.activedItems
       }
     },
     page: {
@@ -55,7 +55,7 @@ export default {
     },
     pageCount: {
       get() {
-        return this.$store.state.pageCount
+        return this.$store.state.searchStore.pageCount
       }
     }
   },
