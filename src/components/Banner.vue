@@ -39,6 +39,7 @@ export default {
       this.$store.dispatch('LOGIN_LOGOUT', {
         isLogin: false
       })
+      document.cookie = 'sulcmiswebpac=;max-age=0'
     }
   }
 }
