@@ -12,7 +12,7 @@ export default {
   computed: {
     isSearchTab: {
       get() {
-        return this.$store.state.searchStore.isSearchTab
+        return this.$store.state.globalStore.isSearchTab
       }
     }
   },
@@ -24,7 +24,7 @@ export default {
           isSearchTab: true
         })
       } else if (tabType === 'login' && isSearchTab === true) {
-        if (this.$store.state.isLogin === true) {
+        if (this.$store.state.globalStore.isLogin === true) {
           this.$router.push('/user')
         } else {
           this.$store.dispatch('TOGGLE_TAB', {

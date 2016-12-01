@@ -53,13 +53,20 @@ export default {
     this.$store.dispatch('CHANGE_PAGE', {
       msg: '图书详情'
     })
-    this.$store.dispatch('FETCH_BOOK')
+    this.$store.dispatch('FETCH_BOOK', {
+      id: this.bookId
+    })
   },
   beforeDestroy() {
     this.$store.dispatch('CLEAR_AVTIVE_BOOK', {
-      id: this.$route.params.id
+      id: this.bookId
     })
-    },
+  },
+  data() {
+    return {
+      bookId: this.$route.params.id
+    }
+  },
   computed: {
     book: {
       get() {
