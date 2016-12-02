@@ -21,21 +21,27 @@ export default {
   },
   methods: {
     login() {
-      Vue.axios.post('/login', {
-        username: this.account,
-        password: this.password
-      })
-      .then(res => {
-        let result = res.data
-        if (result.loginSuccessfully) {
-          this.$router.push('/user')
-          this.$store.dispatch('LOGIN_LOGOUT', {
-            isLogin: true
-          })
-        } else {
-          alert(result.loginMsg)
-        }
-      })
+      if (this.account === '') {
+        alert('请输入账号')
+      } else if (this.password === '') {
+        alert('请输入密码')
+      } else {
+          Vue.axios.post('/login', {
+          username: this.account,
+          password: this.password
+        })
+        .then(res => {
+          let result = res.data
+          if (result.loginSuccessfully) {
+            this.$router.push('/user')
+            this.$store.dispatch('LOGIN_LOGOUT', {
+              isLogin: true
+            })
+          } else {
+            alert(result.loginMsg)
+          }
+        })
+      }
     }
   }
 }

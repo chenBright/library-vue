@@ -35,8 +35,11 @@ export default {
   },
   methods: {
     search() {
-      console.log(campus)
-      this.$router.push('/books/' + this.campus + '/' + this.keywords + '/' + 1)
+      if (this.keywords === '') {
+        alert('请输入关键词')
+      } else {
+        this.$router.push('/books/' + this.campus + '/' + this.keywords + '/' + 1)
+      }
     }
   }
 }
