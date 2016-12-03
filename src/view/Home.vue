@@ -1,9 +1,11 @@
 <template>
   <div class="home-page flex-one">
-    <keep-alive>
-      <search v-if="isSearchTab"></search>
-      <login v-else></login>
-    </keep-alive>
+    <transition name="fade" mode="out-in">
+      <keep-alive>
+        <search v-if="isSearchTab"></search>
+        <login v-else></login>
+      </keep-alive>
+    </transition>
     <tab-bar></tab-bar>
   </div>
 </template>
@@ -14,10 +16,6 @@ import login from '../components/Login'
 import TabBar from '../components/TabBar'
 
 export default {
-  data() {
-    return {
-    }
-  },
   computed: {
     isSearchTab: {
       get() {
@@ -52,5 +50,15 @@ export default {
     #campus {
       height: auto;
     }
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .5s ease;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0;
   }
 </style>

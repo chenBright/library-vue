@@ -26,7 +26,7 @@ export default {
       } else if (this.password === '') {
         alert('请输入密码')
       } else {
-          Vue.axios.post('/login', {
+        Vue.axios.post('/login', {
           username: this.account,
           password: this.password
         })
