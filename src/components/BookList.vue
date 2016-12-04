@@ -9,11 +9,13 @@
       <a @click="nextPage" v-if="page < pageCount">下一页 &gt;</a>
       <a v-else class="disable">下一页 &gt;</a>
     </div>
-    <ul>
-      <router-link :to="'/books/' + book.bookID" v-for="book in books"  :key="book.bookID" target="_blank">
-        <item :book="book"></item>
-      </router-link>
-    </ul>
+    <transition :name="transitionName">
+      <ul>
+        <router-link :to="'/books/' + book.bookID" v-for="book in books" :key="book.bookID">
+          <item :book="book"></item>
+        </router-link>
+      </ul>
+    </transition>
   </div>
 </template>
 
@@ -33,7 +35,8 @@ export default {
   data() {
     return {
       campus: this.$route.params.campus,
-      keywords: this.$route.params.keywords
+      keywords: this.$route.params.keywords,
+      transitionName: 'slide-left'
     }
   },
   computed: {
@@ -57,6 +60,14 @@ export default {
       get() {
         return this.$store.state.searchStore.pageCount
       }
+    }
+  },
+  watch: {
+    '$route'(to, from) {
+      const toPage = to.path.split('/')[4]
+      const fromPage = from.path.split('/')[4]
+      console.log(toPage, fromPage)
+      this.transitionName = toPage < fromPage ? 'slide-right' : 'slide-left'
     }
   },
   methods: {
@@ -112,5 +123,19 @@ export default {
     margin-left: 15px;
     margin-right: 15px;
     font-size: 15px;
+  }
+
+  .book-list > ul {
+    transition: all .5s cubic-bezier(.55,0,.1,1);
+  }
+
+  .slide-left-enter, .slide-right-leave-active {
+    opacity: 0;
+    transform: translate(30px, 0);
+  }
+
+  .slide-left-leave-active, .slide-right-enter {
+    opacity: 0;
+    transform: translate(-30px, 0);
   }
 </style>
